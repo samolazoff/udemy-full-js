@@ -25,4 +25,14 @@ if (personalMovieDB.count<10) {
     console.log("Вы киноман");
     }    
 }
-console.log(personalMovieDB);
+function showMyDB(){
+    console.log(personalMovieDB.privat?true:personalMovieDB);
+}
+function writeYourGenres() {
+    for (let i = 0; i < 3; i++) {
+        personalMovieDB.generes.push(prompt(`Ваш любимый жанр под номером ${i+1}`))
+        
+    }
+}
+writeYourGenres();
+showMyDB();
