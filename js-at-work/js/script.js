@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     // timer
 
-    const deadline='2022-02-02';
+    const deadline='2022-02-28';
     function getTimeRemaining(endtime){
         const t= (Date.parse(endtime)-Date.parse(new Date()))/1000,
               days=Math.floor(t/(60*60*24)),
@@ -68,5 +68,42 @@ window.addEventListener('DOMContentLoaded',()=>{
         }
     };
     setClock('.timer', deadline)
+//modal window
+
+    const modalTrigger=document.querySelectorAll('[data-modal]'),
+          modal=document.querySelector('.modal'),
+          modalCloseBtn=document.querySelector('[data-close]');
+    function openModal(){
+        document.body.style.overflow='hidden';
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        clearInterval(modalTimerId);
+    }
+    function closeModal(){
+        document.body.style.overflow='scroll';
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+    }
+    modalTrigger.forEach((e)=>{
+        e.addEventListener('click',openModal)
+    })
+    modalCloseBtn.addEventListener('click',closeModal)
+    modal.addEventListener('click',(e)=>{
+        if(e.target===modal){
+            closeModal();
+        }
+    })
+    document.addEventListener('keydown',(e)=>{
+        if(e.code==='Escape'&&modal.classList.contains('hide')){
+            closeModal();
+        }
+    })
+    const modalTimerId=setTimeout(openModal,4000);
+
+    window.addEventListener('scroll',()=>{
+        if(window.pageYOffset+document.documentElement.clientHeight>=document.documentElement.scrollHeight){
+            openModal();
+        }
+    })
 
 })
