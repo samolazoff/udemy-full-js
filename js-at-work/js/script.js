@@ -109,13 +109,14 @@ window.addEventListener('DOMContentLoaded',()=>{
     // Class kard
 
     class MenuCard{
-        constructor(src, alt, title, descr, price,parentSelector){
+        constructor(src, alt, title, descr, price,parentSelector,...classes){
             this.src=src;
             this.alt=alt;
             this.title=title;
             this.descr=descr;
             this.price=price;
             this.parent=document.querySelector(parentSelector);
+            this.classes=classes;
             this.transfer=27;
             this.changeToUAH();
         }
@@ -124,8 +125,10 @@ window.addEventListener('DOMContentLoaded',()=>{
         }
         render(){
             const elem=document.createElement('div');
+            this.classes.forEach(className=>{
+                elem.classList.add(className);
+            })
             elem.innerHTML=`
-            <div class="menu__item">
                 <img src=${this.src} alt=${this.alt}>
                 <h3 class="menu__item-subtitle">${this.title}</h3>
                 <div class="menu__item-descr">${this.descr}</div>
@@ -133,8 +136,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 <div class="menu__item-price">
                     <div class="menu__item-cost">Цена:</div>
                     <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
-                </div>
-            </div>`;
+                </div>`;
             this.parent.append(elem);
 
         }
@@ -147,7 +149,8 @@ window.addEventListener('DOMContentLoaded',()=>{
          и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с
           оптимальной ценой и высоким качеством!`,
         9,
-        '.menu .container'
+        '.menu .container',
+        'menu__item'
 
     ).render();
 })
